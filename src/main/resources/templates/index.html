@@ -164,6 +164,96 @@ xmlns:th="http://www.thymeleaf.org">
     </ul>
 
   </aside><!-- End Sidebar-->
+  <section class="section">
+    <div class="row" >
+      <div class="col-lg-6" style="margin: auto; ">
+
+        <div class="card">
+          <div class="card-body" style="padding: 61px 20px 20px 20px">
+            <h5 class="card-title">Preenchimento do Atendimento</h5>
+
+            <!-- FORMULARIO DE ATENDIMENTO -->
+            <form action="salvarAtendimento" method="POST">
+              <div class="row mb-3">
+                <label for="prontuario" class="col-sm-2 col-form-label">Prontuário</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="prontuario" name="prontuario">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="rg" class="col-sm-2 col-form-label">Rg</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="rg" name="rg">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="nome" class="col-sm-2 col-form-label">Paciente</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="nome" name="nome">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="dataAtendimento" class="col-sm-2 col-form-label">Data Atendimento</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="observacao" class="col-sm-2 col-form-label">Observação</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" style="height: 100px" id="observacao" name="observacoes"></textarea>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-10">
+                  <!-- <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">Tratamento</label>
+                  </div> -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="status" name="status" value="falta">
+                    <label class="form-check-label" for="gridCheck2">Falta</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="status" name="status" value="emergencia">
+                    <label class="form-check-label" for="gridCheck2">Emergencia</label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4>Origem: </h4>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Ex-Clínico/Enca.Orto" name="origem" id="Ex-Clínico/Enca.Orto" checked>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Tratamento
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="origem" value="Ex-Clínico/L. Espera" id="Ex-Clínico/L. Espera">
+                  <label class="form-check-label" for="Ex-Clínico/L. Espera">
+                    Ex-Clínico/L. Espera
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="origem" value="Ex-Clínico/Enca.Orto" id="Ex-Clínico/Enca.Orto" >
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Ex-Clínico/Enca.Orto
+                  </label>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </div>
+            </form>
+            <!-- FIM FORMULARIO DE ATENDIMENTO -->
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
 
   <main id="main" class="main">
 
