@@ -1,5 +1,7 @@
 package br.caixa.odonto.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class PacienteService {
 
     public void salvarPaciente(Paciente paciente) {
         pacienteRepository.save(paciente);
+    }
+
+    public List<Paciente> listAll() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
+        return pacientes;
     }
 
 }
