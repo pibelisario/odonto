@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("index")
 public class IndexController {
 
     @GetMapping
@@ -13,8 +13,4 @@ public class IndexController {
         return "index.html";
     }
 
-    @GetMapping("formulario")
-    public String formulario() {
-        return "formulario.html";
-    }
 }
