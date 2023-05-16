@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +34,20 @@ public class PacienciteController {
         List<Paciente> pacientes = (pacienteService.listAll());
         mv.addObject("pacientes", pacientes);
         return mv;
+    }
+
+    @GetMapping("editarPaciente/{id}")
+    public ModelAndView editarPaciente(@PathVariable("id") Long id) {
+        ModelAndView mv = new ModelAndView("editarAtendimento");
+        mv.addObject("objPaciente", pacienteService.findById(id));
+        return mv;
+    }
+
+    @GetMapping("excluirPaciente/{id}")
+    public ModelAndView excluir(@PathVariable("id") Long id) {
+        pacienteService.excluirPaciente(id);
+        return new ModelAndView("redirect:/atendimentos");
+
     }
 
 }

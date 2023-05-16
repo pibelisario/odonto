@@ -23,4 +23,12 @@ public class PacienteService {
         return pacientes;
     }
 
+    public Paciente findById(Long id) {
+        return pacienteRepository.findById(id).get();
+    }
+
+    public void excluirPaciente(Long id) {
+        pacienteRepository.deleteById(id);
+    }
+
 }
