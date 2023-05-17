@@ -36,18 +36,26 @@ public class PacienciteController {
         return mv;
     }
 
-    @GetMapping("editarPaciente/{id}")
-    public ModelAndView editarPaciente(@PathVariable("id") Long id) {
-        ModelAndView mv = new ModelAndView("editarAtendimento");
-        mv.addObject("objPaciente", pacienteService.findById(id));
-        return mv;
-    }
-
     @GetMapping("excluirPaciente/{id}")
     public ModelAndView excluir(@PathVariable("id") Long id) {
         pacienteService.excluirPaciente(id);
         return new ModelAndView("redirect:/atendimentos");
 
+    }
+
+    // @GetMapping("editarAtendimento/{idPaciente}")
+    // public ModelAndView editarAtendimento(@PathVariable("idPaciente") Long
+    // idPaciente) {
+    // ModelAndView mv = new ModelAndView("editarAtendimento");
+    // mv.addObject("objPaciente", pacienteService.findById(idPaciente));
+    // return mv;
+    // }
+
+    @GetMapping("editarAtendimento/{idPaciente}")
+    public ModelAndView editarAtendimento(@PathVariable("idPaciente") Long idPaciente) {
+        ModelAndView mv = new ModelAndView("editarAtendimento");
+        mv.addObject("objPaciente", pacienteService.findById(idPaciente));
+        return mv;
     }
 
 }
