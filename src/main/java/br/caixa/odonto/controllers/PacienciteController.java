@@ -25,6 +25,7 @@ public class PacienciteController {
     public String salvarAtendimento(Paciente paciente) {
         pacienteService.salvarPaciente(paciente);
         System.out.println(paciente.getDataAtendimento());
+        System.out.println(paciente.getDataAtendimento());
         return indexController.index();
     }
 
@@ -42,14 +43,6 @@ public class PacienciteController {
         return new ModelAndView("redirect:/atendimentos");
 
     }
-
-    // @GetMapping("editarAtendimento/{idPaciente}")
-    // public ModelAndView editarAtendimento(@PathVariable("idPaciente") Long
-    // idPaciente) {
-    // ModelAndView mv = new ModelAndView("editarAtendimento");
-    // mv.addObject("objPaciente", pacienteService.findById(idPaciente));
-    // return mv;
-    // }
 
     @GetMapping("editarAtendimento/{idPaciente}")
     public ModelAndView editarAtendimento(@PathVariable("idPaciente") Long idPaciente) {
