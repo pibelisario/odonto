@@ -24,8 +24,6 @@ public class PacienciteController {
     @PostMapping("salvarAtendimento")
     public String salvarAtendimento(Paciente paciente) {
         pacienteService.salvarPaciente(paciente);
-        System.out.println(paciente.getDataAtendimento());
-        System.out.println(paciente.getDataAtendimento());
         return indexController.index();
     }
 

@@ -22,7 +22,7 @@ xmlns:th="http://www.thymeleaf.org">
             <h5 class="card-title">Preenchimento do Atendimento</h5>
 
             <!-- FORMULARIO DE ATENDIMENTO -->
-            <form action="salvarAtendimento" method="POST" th:obj="novoPaciente">
+            <form action="salvarAtendimento" method="POST">
               <div class="row mb-3">
                 <label for="prontuario" class="col-sm-2 col-form-label">Prontuário</label>
                 <div class="col-sm-10">
@@ -44,7 +44,7 @@ xmlns:th="http://www.thymeleaf.org">
               <div class="row mb-3">
                 <label for="dataAtendimento" class="col-sm-2 col-form-label">Data Atendimento</label>
                 <div class="col-sm-10">
-                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento" th:field="${dataAtual}">
+                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento">
                   
                 </div>
               </div>
