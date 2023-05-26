@@ -27,6 +27,12 @@ public class PacienciteController {
         return indexController.index();
     }
 
+    @PostMapping("buscarPorMes")
+    public ModelAndView buscarPorMes(Long mes) {
+        System.out.println(mes);
+        return null;
+    }
+
     @GetMapping("atendimentos")
     public ModelAndView atendimentos() {
         ModelAndView mv = new ModelAndView("atendimentos");
