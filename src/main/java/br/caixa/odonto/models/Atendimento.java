@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Paciente {
+public class Atendimento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

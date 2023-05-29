@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.caixa.odonto.models.Paciente;
+import br.caixa.odonto.models.Atendimento;
 
 @Controller
 public class IndexController {
