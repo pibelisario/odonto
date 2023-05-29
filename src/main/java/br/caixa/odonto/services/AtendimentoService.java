@@ -32,15 +32,11 @@ public class AtendimentoService {
     public List<Atendimento> findByData(String data) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM");
         Date dataInifical = formato.parse(data);
-        Date dataFinal = formato.parse(data);
-
-        Calendar instance = dataFinal;
-        instance.set(Calendar.MONTH, 8);
-        instance.set(Calendar.DAY_OF_MONTH, instance.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Calendar dataFinal = Calendar.getInstance();
+        dataFinal.set(dataInifical.toInstant()., dataFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        // Date dataFinal = formato.parse(data);
 
         System.out.println("Data Inicial: " + dataInifical + " Data Final: " + dataFinal);
-        // List<Atendimento> atendimento =
-        // atendimentoRepository.findAtendimentoByDataBetween(dataInifical, dataFinal);
         return null;
     }
 
