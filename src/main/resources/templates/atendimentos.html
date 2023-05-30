@@ -33,7 +33,7 @@ xmlns:th="http://www.thymeleaf.org">
                         <tr>
                             <th>Prontuário</th>
                             <th>Rg</th>
-                            <th>Paciente</th>
+                            <th>atendimento</th>
                             <th>Origem</th>
                             <th>Data Atendimento</th>
                             <th>Status</th>
@@ -42,17 +42,17 @@ xmlns:th="http://www.thymeleaf.org">
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="paciente : ${pacientes}">
-                            <td th:text="${paciente.prontuario}"></td>
-                            <td th:text="${paciente.rg}"></td>
-                            <td th:text="${paciente.nome}"></td>
-                            <td th:text="${paciente.origem}"></td>
-                            <td th:text="${#temporals.format(paciente.dataAtendimento, 'dd-MM-yyyy')}"></td>
-                            <td th:text="${paciente.status}"></td>
-                            <td><a class="btn btn-primary" th:href="@{editarAtendimento/{idPaciente}(idPaciente=${paciente.id})}">Editar</a></td>
-                            <td><a th:data-confirm-delete="|Você tem certeza que deseja excluir o atendimento de: ${paciente.nome} ?|"
+                        <tr th:each="atendimento : ${atendimentos}">
+                            <td th:text="${atendimento.prontuario}"></td>
+                            <td th:text="${atendimento.rg}"></td>
+                            <td th:text="${atendimento.nome}"></td>
+                            <td th:text="${atendimento.origem}"></td>
+                            <td th:text="${#temporals.format(atendimento.dataAtendimento, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${atendimento.status}"></td>
+                            <td><a class="btn btn-primary" th:href="@{editarAtendimento/{idAtendimento}(idAtendimento=${atendimento.id})}">Editar</a></td>
+                            <td><a th:data-confirm-delete="|Você tem certeza que deseja excluir o atendimento de: ${atendimento.nome} ?|"
                               onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
-                              th:href="@{/excluirPaciente/{id}(id = ${paciente.id})}" class="btn btn-danger">Excluir</a></td>
+                              th:href="@{/excluiratendimento/{id}(id = ${atendimento.id})}" class="btn btn-danger">Excluir</a></td>
                         </tr>
                     </tbody>
                 </table>

@@ -3,6 +3,7 @@ package br.caixa.odonto.services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,26 +26,31 @@ public class AtendimentoService {
     }
 
     public List<Atendimento> listAll() {
-        List<Atendimento> pacientes = atendimentoRepository.findAll();
-        return pacientes;
+        Calendar dataInicial = Calendar.getInstance();
+        Calendar dataFinal = Calendar.getInstance();
+        dataInicial.set(Calendar.DAY_OF_MONTH, dataInicial.getMinimalDaysInFirstWeek());
+        dataInicial.set(Calendar.DAY_OF_MONTH, dataFinal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dF = LocalDate.now();
+        return atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
     }
 
     public List<Atendimento> findByData(String data) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM");
-        Date dataInifical = formato.parse(data);
+        Date dataInicial = formato.parse(data);
         Calendar dataFinal = Calendar.getInstance();
-        dataFinal.set(dataInifical.toInstant()., dataFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
-        // Date dataFinal = formato.parse(data);
-
-        System.out.println("Data Inicial: " + dataInifical + " Data Final: " + dataFinal);
-        return null;
+        dataFinal.setTime(dataInicial);
+        dataFinal.set(Calendar.DAY_OF_MONTH, dataFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dF = dataFinal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
     }
 
     public Atendimento findById(Long id) {
         return atendimentoRepository.findById(id).get();
     }
 
-    public void excluirPaciente(Long id) {
+    public void excluirAtendimento(Long id) {
         atendimentoRepository.deleteById(id);
     }
 

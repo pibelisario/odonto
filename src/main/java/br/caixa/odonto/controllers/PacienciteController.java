@@ -1,7 +1,6 @@
 package br.caixa.odonto.controllers;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,29 +30,31 @@ public class PacienciteController {
 
     @PostMapping("buscarPorMes")
     public ModelAndView buscarPorMes(String data) throws ParseException {
+        ModelAndView mv = new ModelAndView("atendimentos");
         List<Atendimento> atendimentos = atendimentoService.findByData(data);
-        return null;
+        mv.addObject("atendimentos", atendimentos);
+        return mv;
     }
 
     @GetMapping("atendimentos")
     public ModelAndView atendimentos() {
         ModelAndView mv = new ModelAndView("atendimentos");
-        List<Atendimento> pacientes = (atendimentoService.listAll());
-        mv.addObject("pacientes", pacientes);
+        List<Atendimento> atendimento = (atendimentoService.listAll());
+        mv.addObject("atendimentos", atendimento);
         return mv;
     }
 
-    @GetMapping("excluirPaciente/{id}")
+    @GetMapping("excluirAtendimento/{id}")
     public ModelAndView excluir(@PathVariable("id") Long id) {
-        atendimentoService.excluirPaciente(id);
+        atendimentoService.excluirAtendimento(id);
         return new ModelAndView("redirect:/atendimentos");
 
     }
 
-    @GetMapping("editarAtendimento/{idPaciente}")
-    public ModelAndView editarAtendimento(@PathVariable("idPaciente") Long idPaciente) {
+    @GetMapping("editarAtendimento/{idAtendimento}")
+    public ModelAndView editarAtendimento(@PathVariable("idAtendimento") Long idAtendimento) {
         ModelAndView mv = new ModelAndView("editarAtendimento");
-        mv.addObject("objPaciente", atendimentoService.findById(idPaciente));
+        mv.addObject("objAtendimento", atendimentoService.findById(idAtendimento));
         return mv;
     }
 
