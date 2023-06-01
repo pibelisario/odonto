@@ -14,7 +14,7 @@ import br.caixa.odonto.models.Atendimento;
 import br.caixa.odonto.services.AtendimentoService;
 
 @Controller
-public class PacienciteController {
+public class AtendimentoController {
 
     @Autowired
     AtendimentoService atendimentoService;
