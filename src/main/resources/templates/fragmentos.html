@@ -47,7 +47,7 @@
       th:fragment="header"
     >
       <div class="d-flex align-items-center justify-content-between">
-        <a th:href="@{/index}" class="logo d-flex align-items-center">
+        <a th:href="@{/cadAtendimento}" class="logo d-flex align-items-center">
           <img src="../assets/img/logo01.jpg" alt="" />
           <span class="d-none d-lg-block" style="font-size: 1.3em">Odonto - Atendimentos</span
           >
@@ -59,7 +59,7 @@
       <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
           <li class="nav-item dropdown pe-3">
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" th:href="@{index}" data-bs-toggle="dropdown">
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" th:href="@{cadAtendimento}" data-bs-toggle="dropdown">
               <img src="../assets/img/logo01.jpg" alt="Profile" class="rounded-circle"/>
               <span class="d-none d-md-block dropdown-toggle ps-2"
                 >ODONTO</span
@@ -89,7 +89,7 @@
     <aside id="sidebar" class="sidebar" th:fragment="sideBar">
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/index}">
+          <a class="nav-link" th:href="@{/cadAtendimento}">
             <i class="bi bi-grid"></i>
             <span>Formulário</span>
           </a>

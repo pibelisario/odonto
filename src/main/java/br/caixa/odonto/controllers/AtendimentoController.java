@@ -23,9 +23,15 @@ public class AtendimentoController {
     IndexController indexController;
 
     @PostMapping("salvarAtendimento")
-    public String salvarAtendimento(Atendimento paciente) {
+    public ModelAndView salvarAtendimento(Atendimento paciente) {
         atendimentoService.salvarPaciente(paciente);
-        return indexController.index();
+        return indexController.home();
+    }
+
+    @GetMapping("/cadAtendimento")
+    public ModelAndView cadAtendimento() {
+        ModelAndView mv = new ModelAndView("index");
+        return mv;
     }
 
     @PostMapping("buscarPorMes")
