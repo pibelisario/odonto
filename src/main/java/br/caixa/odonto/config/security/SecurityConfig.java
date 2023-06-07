@@ -19,10 +19,12 @@ public class SecurityConfig {
                 authorizeConfig -> {
                     authorizeConfig.requestMatchers("/logout").permitAll();
                     authorizeConfig.requestMatchers("/login").permitAll();
-                    authorizeConfig.requestMatchers("/css/**").permitAll();
-                    authorizeConfig.requestMatchers("/img/**").permitAll();
-                    authorizeConfig.requestMatchers("/js/**").permitAll();
-                    authorizeConfig.requestMatchers("/").permitAll();
+                    authorizeConfig.requestMatchers("../../../../../../resources/static/assets/css/**").permitAll();
+                    authorizeConfig.requestMatchers("../../../../../../resources/static/assets/img/**").permitAll();
+                    authorizeConfig.requestMatchers("../../../../../../resources/static/assets/js/**").permitAll();
+                    authorizeConfig.requestMatchers("../../../../../../resources/static/assets/scss/**").permitAll();
+                    authorizeConfig.requestMatchers("../../../../../../resources/static/assets/vendor/**").permitAll();
+                    authorizeConfig.requestMatchers("/**").permitAll();
                     authorizeConfig.anyRequest().authenticated();
                 });
 
