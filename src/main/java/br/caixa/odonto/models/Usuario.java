@@ -1,5 +1,6 @@
 package br.caixa.odonto.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class Usuario implements UserDetails {
     @ManyToMany
     @JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+    @OneToMany(mappedBy = "usuario")
+    private List<Atendimento> atendimentos = new ArrayList<Atendimento>();;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

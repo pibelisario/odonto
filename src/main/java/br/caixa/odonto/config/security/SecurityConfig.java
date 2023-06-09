@@ -25,9 +25,9 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("../../../../../../resources/static/assets/scss/**").permitAll();
                     authorizeConfig.requestMatchers("../../../../../../resources/static/assets/vendor/**").permitAll();
                     authorizeConfig.requestMatchers("/**").permitAll();
-                    authorizeConfig.anyRequest().authenticated();
+                    // authorizeConfig.anyRequest().authenticated();
                 });
-
+        http.csrf().disable();
         http.formLogin((form) -> form
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/cadAtendimento"));
