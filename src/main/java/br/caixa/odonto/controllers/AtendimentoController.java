@@ -4,16 +4,17 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import aj.org.objectweb.asm.Attribute;
 import br.caixa.odonto.models.Atendimento;
+import br.caixa.odonto.models.Usuario;
+import br.caixa.odonto.repositories.UsuarioRepository;
 import br.caixa.odonto.services.AtendimentoService;
 
 @Controller
@@ -25,10 +26,14 @@ public class AtendimentoController {
     @Autowired
     IndexController indexController;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     @PostMapping("salvarAtendimento")
-    public ModelAndView salvarAtendimento(Atendimento paciente, RedirectAttributes attributes) {
+    public ModelAndView salvarAtendimento(Atendimento atendimento, RedirectAttributes attributes,
+            @RequestParam String userName) {
         ModelAndView mv = new ModelAndView("redirect:/cadAtendimento");
-        atendimentoService.salvarPaciente(paciente);
+        atendimentoService.salvarPaciente(atendimento, userName);
         attributes.addFlashAttribute("msg", "Cadastro salvo com sucesso!");
         return mv;
     }

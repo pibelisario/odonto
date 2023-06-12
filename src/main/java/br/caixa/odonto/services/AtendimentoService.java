@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,11 @@ public class AtendimentoService {
     @Autowired
     AtendimentoRepository atendimentoRepository;
 
-    public void salvarPaciente(Atendimento atendimento) {
+    @Autowired
+    UsuarioService usuarioService;
+
+    public void salvarPaciente(Atendimento atendimento, String userName) {
+        atendimento.setUsuario(usuarioService.findByUser(userName));
         atendimentoRepository.save(atendimento);
     }
 

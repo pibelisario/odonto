@@ -27,6 +27,7 @@ xmlns:th="http://www.thymeleaf.org">
               th:if="${not #strings.isEmpty(msg)}">
               <span th:text="${msg}"></span>
               </div>
+              <input type="hidden" name="userName" th:value="${#authentication.getPrincipal().getUsername()}">
               <div class="row mb-3">
                 <label for="prontuario" class="col-sm-2 col-form-label">Prontuário</label>
                 <div class="col-sm-10">
