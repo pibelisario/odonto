@@ -7,6 +7,8 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +30,20 @@ public class AtendimentoService {
         atendimentoRepository.save(atendimento);
     }
 
-    public List<Atendimento> listAll() {
+    public List<Atendimento> listAll(String userName) {
         Calendar dataInicial = Calendar.getInstance();
         Calendar dataFinal = Calendar.getInstance();
         dataInicial.set(Calendar.DAY_OF_MONTH, dataInicial.getMinimalDaysInFirstWeek());
         dataInicial.set(Calendar.DAY_OF_MONTH, dataFinal.getActualMinimum(Calendar.DAY_OF_MONTH));
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = LocalDate.now();
-        return atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
+        List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
+        List<Atendimento> at = atendimentos.stream()
+                .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
+        return at;
     }
 
-    public List<Atendimento> findByData(String data) throws ParseException {
+    public List<Atendimento> findByData(String data, String userName) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM");
         Date dataInicial = formato.parse(data);
         Calendar dataFinal = Calendar.getInstance();
@@ -46,7 +51,11 @@ public class AtendimentoService {
         dataFinal.set(Calendar.DAY_OF_MONTH, dataFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = dataFinal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
+        List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
+        List<Atendimento> at = atendimentos.stream()
+                .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
+        at.forEach(System.out::println);
+        return at;
     }
 
     public Atendimento findById(Long id) {

@@ -28,11 +28,10 @@ public class SecurityConfig {
                     // authorizeConfig.anyRequest().authenticated();
                 });
         http.csrf().disable();
+
         http.formLogin((form) -> form
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/cadAtendimento"));
-
-        // http.formLogin().defaultSuccessUrl("/index");
 
         http.logout((logout) -> logout.permitAll());
 

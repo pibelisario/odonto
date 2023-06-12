@@ -13,4 +13,11 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 
     List<Atendimento> findAtendimentoBydataAtendimentoBetween(LocalDate dI, LocalDate dF);
 
+    // List<Atendimento>
+    // findAtendimentoBydataAtendimentoBetweenAndUserNameEqualList(LocalDate dI,
+    // LocalDate dF,
+    // String userName);
+
+    // List<Atendimento> findAtendimentoByUser(String userName);
+
 }

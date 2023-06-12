@@ -13,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.caixa.odonto.models.Atendimento;
-import br.caixa.odonto.models.Usuario;
 import br.caixa.odonto.repositories.UsuarioRepository;
 import br.caixa.odonto.services.AtendimentoService;
+import br.caixa.odonto.services.UsuarioService;
 
 @Controller
 public class AtendimentoController {
@@ -25,9 +25,6 @@ public class AtendimentoController {
 
     @Autowired
     IndexController indexController;
-
-    @Autowired
-    UsuarioRepository usuarioRepository;
 
     @PostMapping("salvarAtendimento")
     public ModelAndView salvarAtendimento(Atendimento atendimento, RedirectAttributes attributes,
@@ -47,15 +44,16 @@ public class AtendimentoController {
     @PostMapping("buscarPorMes")
     public ModelAndView buscarPorMes(String data) throws ParseException {
         ModelAndView mv = new ModelAndView("atendimentos");
-        List<Atendimento> atendimentos = atendimentoService.findByData(data);
-        mv.addObject("atendimentos", atendimentos);
+        // List<Atendimento> atendimentos = atendimentoService.findByData(data,
+        // userName);
+        // mv.addObject("atendimentos", atendimentos);
         return mv;
     }
 
-    @GetMapping("atendimentos")
-    public ModelAndView atendimentos() {
+    @GetMapping("atendimentos/{userName}")
+    public ModelAndView atendimentos(@PathVariable String userName) {
         ModelAndView mv = new ModelAndView("atendimentos");
-        List<Atendimento> atendimento = (atendimentoService.listAll());
+        List<Atendimento> atendimento = (atendimentoService.listAll(userName));
         mv.addObject("atendimentos", atendimento);
         return mv;
     }

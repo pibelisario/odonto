@@ -61,8 +61,7 @@
           <li class="nav-item dropdown pe-3">
             <a class="nav-link nav-profile d-flex align-items-center pe-0" th:href="@{cadAtendimento}" data-bs-toggle="dropdown">
               <img src="../assets/img/logo01.jpg" alt="Profile" class="rounded-circle"/>
-              <span class="d-none d-md-block dropdown-toggle ps-2"
-                >ODONTO</span
+              <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">ODONTO</span
               > </a
             ><!-- End Profile Iamge Icon -->
 
@@ -72,7 +71,9 @@
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
+                  <form action="logout" method="post" th:action="@{/logout}">
+                    <button class="btn btn-danger">sair</button>
+                </form>
                 </a>
               </li>
             </ul>
@@ -99,7 +100,7 @@
         <li class="nav-item"></li>
 
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/atendimentos}">
+            <a class="nav-link" th:href="@{/atendimentos/{userName}(userName=${#authentication.getPrincipal().getUsername()})}">
               <i class="bi bi-body-text"></i>
               <span>Atendimentos</span>
             </a>
