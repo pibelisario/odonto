@@ -48,13 +48,13 @@ public class AtendimentoService {
         Date dataInicial = formato.parse(data);
         Calendar dataFinal = Calendar.getInstance();
         dataFinal.setTime(dataInicial);
-        dataFinal.set(Calendar.DAY_OF_MONTH, dataFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        dataFinal.set(Calendar.DAY_OF_MONTH,
+                dataFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = dataFinal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
-        at.forEach(System.out::println);
         return at;
     }
 

@@ -41,12 +41,12 @@ public class AtendimentoController {
         return mv;
     }
 
-    @PostMapping("buscarPorMes")
-    public ModelAndView buscarPorMes(String data) throws ParseException {
+    @GetMapping("/buscarPorMes")
+    public ModelAndView buscarPorMes(@RequestParam String data, @RequestParam String userName) throws ParseException {
         ModelAndView mv = new ModelAndView("atendimentos");
-        // List<Atendimento> atendimentos = atendimentoService.findByData(data,
-        // userName);
-        // mv.addObject("atendimentos", atendimentos);
+        List<Atendimento> atendimentos = atendimentoService.findByData(data, userName);
+        System.out.println("asdfasdf" + data);
+        mv.addObject("atendimentos", atendimentos);
         return mv;
     }
 

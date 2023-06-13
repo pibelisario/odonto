@@ -20,9 +20,9 @@ xmlns:th="http://www.thymeleaf.org">
 
         <div class="card" style="width: 1200px;">
           <div class="card-body" style="padding: 61px 20px 20px 20px">
-              <form name="formulario" th:action="buscarPorMes" method="POST" onchange="submitform()">
+              <form name="formulario" th:action="@{/buscarPorMes}" method="GET" onchange="submitform()">
                 <h5>Selecione o mês que deseja verificar o relatorio</h5>
-                <!-- <input type="hidden" name="userName" th:value="${#authentication.getPrincipal().getUsername()}"> -->
+                <input type="hidden" name="userName" th:value="${#authentication.getPrincipal().getUsername()}">
                 <input type="month" id="data" name="data">
                 <br>
                 <br>
