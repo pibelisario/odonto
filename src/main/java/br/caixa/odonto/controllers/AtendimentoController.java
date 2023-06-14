@@ -1,10 +1,13 @@
 package br.caixa.odonto.controllers;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.caixa.odonto.models.Atendimento;
-import br.caixa.odonto.repositories.UsuarioRepository;
 import br.caixa.odonto.services.AtendimentoService;
-import br.caixa.odonto.services.UsuarioService;
+import jakarta.validation.Valid;
 
 @Controller
 public class AtendimentoController {
@@ -27,9 +29,19 @@ public class AtendimentoController {
     IndexController indexController;
 
     @PostMapping("salvarAtendimento")
-    public ModelAndView salvarAtendimento(Atendimento atendimento, RedirectAttributes attributes,
+    public ModelAndView salvarAtendimento(@Valid Atendimento atendimento, BindingResult result,
+            RedirectAttributes attributes,
             @RequestParam String userName) {
         ModelAndView mv = new ModelAndView("redirect:/cadAtendimento");
+
+        if (result.hasErrors()) {
+            // List<String> msg = new ArrayList<>();
+            // for (ObjectError objectError : result.getAllErrors()) {
+            // msg.add(objectError.getDefaultMessage());
+            // }
+            attributes.addFlashAttribute("error", "Verifique se todos os campos estão digitados corretamente");
+            return mv;
+        }
         atendimentoService.salvarPaciente(atendimento, userName);
         attributes.addFlashAttribute("msg", "Cadastro salvo com sucesso!");
         return mv;

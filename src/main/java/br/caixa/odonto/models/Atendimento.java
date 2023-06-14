@@ -1,7 +1,6 @@
 package br.caixa.odonto.models;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,14 +12,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
-@Setter
-@Getter
-@ToString
+@Data
 public class Atendimento {
 
     @Id
