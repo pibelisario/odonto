@@ -103,7 +103,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <div class="col-sm-10">
                   <br>
                   <button type="submit" class="btn btn-primary">Salvar</button>
-                  <a th:href="@{/atendimentos}" class="btn btn-danger">Voltar</a>
+                  <a th:href="@{/atendimentos/{userName}(userName=${#authentication.getPrincipal().getUsername()})}" class="btn btn-danger">Voltar</a>
                 </div>
               </div>
             </form>

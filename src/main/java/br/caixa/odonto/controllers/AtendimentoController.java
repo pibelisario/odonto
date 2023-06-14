@@ -58,10 +58,10 @@ public class AtendimentoController {
         return mv;
     }
 
-    @GetMapping("excluirAtendimento/{id}")
-    public ModelAndView excluir(@PathVariable("id") Long id) {
+    @GetMapping("excluirAtendimento/{id}/{userName}")
+    public ModelAndView excluir(@PathVariable("id") Long id, @PathVariable String userName) {
         atendimentoService.excluirAtendimento(id);
-        return new ModelAndView("redirect:/atendimentos");
+        return new ModelAndView("redirect:/atendimentos/" + userName);
 
     }
 
