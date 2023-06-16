@@ -3,11 +3,15 @@ package br.caixa.odonto.controllers;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.lowagie.text.DocumentException;
 
 import br.caixa.odonto.services.RelatorioService;
 
@@ -23,9 +27,13 @@ public class RelatorioController {
     }
 
     @GetMapping("/downloadRelatorioPorData")
-    public HttpEntity<byte[]> gerarRelatorioPorData() throws IOException {
+    public HttpEntity<byte[]> gerarRelatorioPorData(@RequestParam String data, @RequestParam String userName)
+            throws IOException, DocumentException, ParseException {
 
-        relatorioService.gerarRelatorio();
+        System.out.println(data);
+        System.out.println(userName);
+
+        relatorioService.gerarRelatorio(data, userName);
 
         byte[] arquivo = Files
                 .readAllBytes(Paths.get("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf"));
