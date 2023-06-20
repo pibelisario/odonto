@@ -2,6 +2,8 @@ package br.caixa.odonto.Util;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,8 @@ import lombok.Data;
 @Data
 public class Relatorio implements RelatorioInterfece {
 
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private List<Atendimento> atendimento;
     private Usuario usuario;
     private Date data;
@@ -31,6 +35,7 @@ public class Relatorio implements RelatorioInterfece {
         this.usuario = usuario;
         this.atendimento = atendimento;
         this.pdf = new Document();
+        pdf.setPageSize(PageSize.A4.rotate());
         this.data = newDate;
         this.pdf.open();
         PdfWriter.getInstance(pdf,
@@ -59,11 +64,12 @@ public class Relatorio implements RelatorioInterfece {
     @Override
     public void gerarCabecalho() {
         // Paragrafo com titúlo do relatório e mes.
+        this.pdf.open();
 
         Paragraph paragrafoTitulo = new Paragraph();
         paragrafoTitulo.setAlignment(Element.ALIGN_CENTER);
         paragrafoTitulo.add(new Chunk("RELATÓRIO DE ATENDIMENTO DIÁRIO " + new FormatDate().formatarData(data),
-                new Font(Font.BOLD, 24)));
+                new Font(Font.BOLD, 16)));
         paragrafoTitulo.add(new Paragraph());
         paragrafoTitulo.add(new Paragraph());
         paragrafoTitulo.add(new Paragraph());
@@ -74,12 +80,41 @@ public class Relatorio implements RelatorioInterfece {
         paragrafoNome.setAlignment(Element.ALIGN_LEFT);
         paragrafoNome.add(new Chunk("Nome: " + usuario.getNome(), new Font(Font.COURIER, 16)));
         paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
         this.pdf.add(paragrafoNome);
+
+        // Paragraph paragrafoPaciente = new Paragraph();
+        // paragrafoNome.setAlignment(Element.ALIGN_LEFT);
+        // for (int i = 0; i < atendimento.size(); i++) {
+        // paragrafoPaciente.add(new Chunk("Paciente: " +
+        // atendimento.get(i).getNome()));
+        // paragrafoPaciente.add(new Paragraph());
+        // this.pdf.add(paragrafoPaciente);
+        // }
+
+        // this.pdf.close();
 
     }
 
     @Override
     public void gerarCorpo() {
+        this.pdf.open();
+        Paragraph paragrafoNome = new Paragraph();
+        paragrafoNome.setAlignment(Element.ALIGN_LEFT);
+        for (int i = 0; i < atendimento.size(); i++) {
+            LocalDate dt1 = atendimento.get(i).getDataAtendimento();
+            String dat = dt1.format(formatter);
+            paragrafoNome.add(new Chunk(
+                    "Prontúario: " + atendimento.get(i).getProntuario()
+                            + " Rg: " + atendimento.get(i).getRg()
+                            + " Paciente: " + atendimento.get(i).getNome())
+                    + " Origem: " + atendimento.get(i).getOrigem()
+                    + " Data: " + dat
+                    + " Obs: " + atendimento.get(i).getObservacoes());
+            paragrafoNome.add(new Paragraph());
+            this.pdf.add(paragrafoNome);
+        }
+        this.pdf.close();
     }
 
     @Override
@@ -88,7 +123,6 @@ public class Relatorio implements RelatorioInterfece {
 
     @Override
     public void imprimir() {
-        this.pdf.setPageSize(PageSize.A4.rotate());
 
         if (this.pdf != null || this.pdf.isOpen()) {
             this.pdf.close();

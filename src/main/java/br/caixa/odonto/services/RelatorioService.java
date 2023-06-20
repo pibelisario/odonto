@@ -36,6 +36,7 @@ public class RelatorioService {
 
         Relatorio relatorio = new Relatorio(atendimentos, usuario, newDate);
         relatorio.gerarCabecalho();
+        relatorio.gerarCorpo();
         relatorio.imprimir();
 
     }
