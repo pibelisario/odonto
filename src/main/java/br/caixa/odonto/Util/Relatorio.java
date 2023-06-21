@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import com.lowagie.text.Anchor;
+import com.lowagie.text.Chapter;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -14,6 +16,10 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Section;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import br.caixa.odonto.models.Atendimento;
@@ -78,42 +84,69 @@ public class Relatorio implements RelatorioInterfece {
         // Paragrafo com informações do dentista
         Paragraph paragrafoNome = new Paragraph();
         paragrafoNome.setAlignment(Element.ALIGN_LEFT);
-        paragrafoNome.add(new Chunk("Nome: " + usuario.getNome(), new Font(Font.COURIER, 16)));
+        paragrafoNome.add(new Chunk("Dr: " + usuario.getNome(), new Font(Font.BOLD, 24)));
         paragrafoNome.add(new Paragraph());
         paragrafoNome.add(new Paragraph());
         this.pdf.add(paragrafoNome);
-
-        // Paragraph paragrafoPaciente = new Paragraph();
-        // paragrafoNome.setAlignment(Element.ALIGN_LEFT);
-        // for (int i = 0; i < atendimento.size(); i++) {
-        // paragrafoPaciente.add(new Chunk("Paciente: " +
-        // atendimento.get(i).getNome()));
-        // paragrafoPaciente.add(new Paragraph());
-        // this.pdf.add(paragrafoPaciente);
-        // }
-
-        // this.pdf.close();
 
     }
 
     @Override
     public void gerarCorpo() {
+
         this.pdf.open();
         Paragraph paragrafoNome = new Paragraph();
+        paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
+        paragrafoNome.add(new Paragraph());
         paragrafoNome.setAlignment(Element.ALIGN_LEFT);
+
+        this.pdf.add(paragrafoNome);
+
+        // Tabela com 3 colunas
+        float[] pointColumnWidths1 = { 30f, 30f, 90f, 60f, 35f, 70f };
+        PdfPTable table = new PdfPTable(pointColumnWidths1);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Prontú.:", new Font(Font.NORMAL, 12)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Rg: ", new Font(Font.NORMAL, 12)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Paciente: ", new Font(Font.NORMAL, 12)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Origem: ", new Font(Font.NORMAL, 12)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Data: ", new Font(Font.NORMAL, 12)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Obervações: ", new Font(Font.NORMAL, 12)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
         for (int i = 0; i < atendimento.size(); i++) {
             LocalDate dt1 = atendimento.get(i).getDataAtendimento();
             String dat = dt1.format(formatter);
-            paragrafoNome.add(new Chunk(
-                    "Prontúario: " + atendimento.get(i).getProntuario()
-                            + " Rg: " + atendimento.get(i).getRg()
-                            + " Paciente: " + atendimento.get(i).getNome())
-                    + " Origem: " + atendimento.get(i).getOrigem()
-                    + " Data: " + dat
-                    + " Obs: " + atendimento.get(i).getObservacoes());
-            paragrafoNome.add(new Paragraph());
-            this.pdf.add(paragrafoNome);
+            table.addCell(atendimento.get(i).getProntuario());
+            table.addCell(atendimento.get(i).getRg());
+            table.addCell(atendimento.get(i).getNome());
+            table.addCell(atendimento.get(i).getOrigem());
+            table.addCell(dat);
+            table.addCell(atendimento.get(i).getObservacoes());
         }
+
+        this.pdf.add(table);
         this.pdf.close();
     }
 
