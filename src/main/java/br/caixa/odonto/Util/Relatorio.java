@@ -43,6 +43,8 @@ public class Relatorio implements RelatorioInterfece {
         this.pdf = new Document();
         pdf.setPageSize(PageSize.A4.rotate());
         this.data = newDate;
+        this.pdf.setMargins(20, 20, 20, 20);
+        this.pdf.setMarginMirroring(true);
         this.pdf.open();
         PdfWriter.getInstance(pdf,
                 new FileOutputStream("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf"));
@@ -108,30 +110,36 @@ public class Relatorio implements RelatorioInterfece {
         this.pdf.add(paragrafoNome);
 
         // Tabela com 3 colunas
-        float[] pointColumnWidths1 = { 30f, 30f, 90f, 60f, 35f, 70f };
+        float[] pointColumnWidths1 = { 300f, 300f, 900f, 600f, 350f, 350f, 700f };
         PdfPTable table = new PdfPTable(pointColumnWidths1);
+        table.setHorizontalAlignment(0);
+        table.setWidthPercentage(100f);
 
-        PdfPCell c1 = new PdfPCell(new Phrase("Prontú.:", new Font(Font.NORMAL, 12)));
+        PdfPCell c1 = new PdfPCell(new Phrase("Prontú:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Rg: ", new Font(Font.NORMAL, 12)));
+        c1 = new PdfPCell(new Phrase("Rg:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Paciente: ", new Font(Font.NORMAL, 12)));
+        c1 = new PdfPCell(new Phrase("Paciente:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Origem: ", new Font(Font.NORMAL, 12)));
+        c1 = new PdfPCell(new Phrase("Origem:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Data: ", new Font(Font.NORMAL, 12)));
+        c1 = new PdfPCell(new Phrase("Status:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Obervações: ", new Font(Font.NORMAL, 12)));
+        c1 = new PdfPCell(new Phrase("Data:", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Obervações:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
@@ -142,6 +150,7 @@ public class Relatorio implements RelatorioInterfece {
             table.addCell(atendimento.get(i).getRg());
             table.addCell(atendimento.get(i).getNome());
             table.addCell(atendimento.get(i).getOrigem());
+            table.addCell(atendimento.get(i).getStatus());
             table.addCell(dat);
             table.addCell(atendimento.get(i).getObservacoes());
         }
