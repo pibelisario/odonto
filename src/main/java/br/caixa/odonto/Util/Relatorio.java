@@ -156,11 +156,122 @@ public class Relatorio implements RelatorioInterfece {
         }
 
         this.pdf.add(table);
-        this.pdf.close();
     }
 
     @Override
     public void gerarRodape() {
+
+        this.pdf.newPage();
+        this.pdf.open();
+
+        float[] pointColumnWidths1 = { 30f, 10f };
+        PdfPTable table = new PdfPTable(pointColumnWidths1);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Número pacientes atendidos", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(pacAtenditos().toString(), new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Número de exames clínicos", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(pcClinico().toString(), new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Número de avalição encaminhada Orto", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(pcOrto().toString(), new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Número de tratamento concluídos", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("concluídos", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Números de faltas", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(pcFalta().toString(), new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Número de emergência", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(pcEmergencia().toString(), new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        this.pdf.add(table);
+
+    }
+
+    public Integer pacAtenditos() {
+        return atendimento.size() - pcFalta();
+    }
+
+    public Integer pcFalta() {
+        int n = 0;
+
+        for (int i = 0; i < atendimento.size(); i++) {
+            if (atendimento.get(i).getStatus().equals("Falta")) {
+                n++;
+            }
+        }
+
+        return n;
+
+    }
+
+    public Integer pcClinico() {
+
+        int n = 0;
+
+        for (int i = 0; i < atendimento.size(); i++) {
+            if (atendimento.get(i).getOrigem().equals("Ex-Clínico/L. Espera")) {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    public Integer pcOrto() {
+
+        int n = 0;
+
+        for (int i = 0; i < atendimento.size(); i++) {
+            if (atendimento.get(i).getOrigem().equals("Ex-Clínico/Enca.Orto")) {
+                n++;
+            }
+        }
+        return n;
+
+    }
+
+    public Integer pcEmergencia() {
+
+        int n = 0;
+
+        for (int i = 0; i < atendimento.size(); i++) {
+            if (atendimento.get(i).getStatus().equals("Emergência")) {
+                n++;
+            }
+        }
+        return n;
+
     }
 
     @Override
