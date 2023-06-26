@@ -34,6 +34,7 @@ public class Atendimento {
     @NotBlank
     private String origem;
     private String status;
+    private String tratamentoConcluido;
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;

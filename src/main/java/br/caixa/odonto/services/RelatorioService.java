@@ -38,6 +38,7 @@ public class RelatorioService {
         relatorio.gerarCabecalho();
         relatorio.gerarCorpo();
         relatorio.gerarRodape();
+        relatorio.gerarAssinatura();
         relatorio.imprimir();
 
     }

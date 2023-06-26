@@ -29,7 +29,7 @@ import lombok.Data;
 @Data
 public class Relatorio implements RelatorioInterfece {
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
 
     private List<Atendimento> atendimento;
     private Usuario usuario;
@@ -110,7 +110,7 @@ public class Relatorio implements RelatorioInterfece {
         this.pdf.add(paragrafoNome);
 
         // Tabela com 3 colunas
-        float[] pointColumnWidths1 = { 300f, 300f, 900f, 600f, 350f, 350f, 700f };
+        float[] pointColumnWidths1 = { 300f, 300f, 900f, 600f, 350f, 250f, 700f, 200f };
         PdfPTable table = new PdfPTable(pointColumnWidths1);
         table.setHorizontalAlignment(0);
         table.setWidthPercentage(100f);
@@ -139,7 +139,10 @@ public class Relatorio implements RelatorioInterfece {
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Obervações:", new Font(Font.BOLD, 14)));
+        c1 = new PdfPCell(new Phrase("Obs:", new Font(Font.BOLD, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+        c1 = new PdfPCell(new Phrase("T.C.:", new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
@@ -153,6 +156,11 @@ public class Relatorio implements RelatorioInterfece {
             table.addCell(atendimento.get(i).getStatus());
             table.addCell(dat);
             table.addCell(atendimento.get(i).getObservacoes());
+            if (atendimento.get(i).getTratamentoConcluido() != null) {
+                table.addCell("X");
+            } else {
+                table.addCell(" ");
+            }
         }
 
         this.pdf.add(table);
@@ -195,7 +203,7 @@ public class Relatorio implements RelatorioInterfece {
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("concluídos", new Font(Font.BOLD, 14)));
+        c1 = new PdfPCell(new Phrase(tratamentoConcluido().toString(), new Font(Font.BOLD, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
@@ -216,6 +224,45 @@ public class Relatorio implements RelatorioInterfece {
         table.addCell(c1);
 
         this.pdf.add(table);
+
+    }
+
+    public void gerarAssinatura() {
+
+        // Paragrafo com titúlo do relatório e mes.
+
+        Paragraph assinatura = new Paragraph();
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.setAlignment(Element.ALIGN_CENTER);
+        assinatura.add(new Chunk("_________________________________",
+                new Font(Font.BOLD, 16)));
+        assinatura.add(new Paragraph());
+        assinatura.add(new Paragraph());
+        assinatura.add(new Chunk(usuario.getNome(),
+                new Font(Font.BOLD, 16)));
+
+        Paragraph carimbo = new Paragraph();
+        carimbo.add(new Paragraph());
+        carimbo.add(new Paragraph());
+        carimbo.add(new Paragraph());
+        carimbo.setAlignment(Element.ALIGN_CENTER);
+        carimbo.add(new Chunk("_________________________________",
+                new Font(Font.BOLD, 16)));
+        carimbo.add(new Paragraph());
+        carimbo.add(new Paragraph());
+        carimbo.add(new Chunk("  Carimbo    ",
+                new Font(Font.BOLD, 16)));
+
+        this.pdf.add(assinatura);
+        this.pdf.add(carimbo);
 
     }
 
@@ -272,6 +319,19 @@ public class Relatorio implements RelatorioInterfece {
         }
         return n;
 
+    }
+
+    public Integer tratamentoConcluido() {
+
+        int n = 0;
+
+        for (int i = 0; i < atendimento.size(); i++) {
+            if (atendimento.get(i).getTratamentoConcluido() != null) {
+                n++;
+            }
+        }
+
+        return n;
     }
 
     @Override
