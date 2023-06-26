@@ -3,6 +3,8 @@ package br.caixa.odonto.services;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class RelatorioService {
 
         List<Atendimento> atendimentos = atendimentoService.findByData(data, userName);
         Usuario usuario = usuarioService.findByUser(userName);
+        Collections.sort(atendimentos, Comparator.comparing(Atendimento::getNome));
 
         Relatorio relatorio = new Relatorio(atendimentos, usuario, newDate);
         relatorio.gerarCabecalho();

@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +40,20 @@ public class AtendimentoService {
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
+        // Collections.sort(at, Comparator.comparing(Atendimento::getNome));
+        // ordenaPorNome(at);
+        Collections.sort(at);
         return at;
+    }
+
+    public void ordenaPorNome(List<Atendimento> listaAtendimentos) {
+        Collections.sort(listaAtendimentos, new Comparator<Atendimento>() {
+            @Override
+            public int compare(Atendimento a1, Atendimento a2) {
+
+                return a1.getNome().compareTo(a2.getNome());
+            }
+        });
     }
 
     public List<Atendimento> findByData(String data, String userName) throws ParseException {
