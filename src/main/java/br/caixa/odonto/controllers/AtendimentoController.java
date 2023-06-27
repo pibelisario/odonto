@@ -51,7 +51,7 @@ public class AtendimentoController {
     public ModelAndView salvarAtendimentoEditado(@Valid Atendimento atendimento, BindingResult result,
             RedirectAttributes attributes,
             @RequestParam String userName, @RequestParam Long id) {
-        ModelAndView mv = new ModelAndView("redirect:/cadAtendimento");
+        ModelAndView mv = new ModelAndView("redirect:/atendimentos/" + userName);
 
         if (result.hasErrors()) {
             // List<String> msg = new ArrayList<>();
@@ -84,8 +84,7 @@ public class AtendimentoController {
     @GetMapping("atendimentos/{userName}")
     public ModelAndView atendimentos(@PathVariable String userName) {
         ModelAndView mv = new ModelAndView("atendimentos");
-        List<Atendimento> atendimento = (atendimentoService.listAll(userName));
-        mv.addObject("atendimentos", atendimento);
+        mv.addObject("atendimentos", atendimentoService.listAll(userName));
         return mv;
     }
 
