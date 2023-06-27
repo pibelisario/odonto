@@ -38,11 +38,11 @@ public class AtendimentoService {
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = LocalDate.now();
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
+        ordenaPorNome(atendimentos);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
         // Collections.sort(at, Comparator.comparing(Atendimento::getNome));
         // ordenaPorNome(at);
-        Collections.sort(at);
         return at;
     }
 
@@ -66,6 +66,7 @@ public class AtendimentoService {
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = dataFinal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
+        ordenaPorNome(atendimentos);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
         return at;

@@ -35,7 +35,6 @@ public class RelatorioService {
 
         List<Atendimento> atendimentos = atendimentoService.findByData(data, userName);
         Usuario usuario = usuarioService.findByUser(userName);
-        Collections.sort(atendimentos, Comparator.comparing(Atendimento::getNome));
 
         Relatorio relatorio = new Relatorio(atendimentos, usuario, newDate);
         relatorio.gerarCabecalho();
@@ -44,6 +43,16 @@ public class RelatorioService {
         relatorio.gerarAssinatura();
         relatorio.imprimir();
 
+    }
+
+    public void ordenaPorNome(List<Atendimento> listaAtendimentos) {
+        Collections.sort(listaAtendimentos, new Comparator<Atendimento>() {
+            @Override
+            public int compare(Atendimento a1, Atendimento a2) {
+
+                return a1.getNome().compareTo(a2.getNome());
+            }
+        });
     }
 
 }
