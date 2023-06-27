@@ -41,8 +41,6 @@ public class AtendimentoService {
         ordenaPorNome(atendimentos);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
-        // Collections.sort(at, Comparator.comparing(Atendimento::getNome));
-        // ordenaPorNome(at);
         return at;
     }
 
