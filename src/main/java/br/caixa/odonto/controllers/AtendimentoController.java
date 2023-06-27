@@ -47,6 +47,25 @@ public class AtendimentoController {
         return mv;
     }
 
+    @PostMapping("salvarAtendimentoEditado")
+    public ModelAndView salvarAtendimentoEditado(@Valid Atendimento atendimento, BindingResult result,
+            RedirectAttributes attributes,
+            @RequestParam String userName, @RequestParam Long id) {
+        ModelAndView mv = new ModelAndView("redirect:/cadAtendimento");
+
+        if (result.hasErrors()) {
+            // List<String> msg = new ArrayList<>();
+            // for (ObjectError objectError : result.getAllErrors()) {
+            // msg.add(objectError.getDefaultMessage());
+            // }
+            attributes.addFlashAttribute("error", "Verifique se todos os campos estão digitados corretamente");
+            return mv;
+        }
+        atendimentoService.salvarPaciente(atendimento, userName);
+        attributes.addFlashAttribute("msg", "Cadastro salvo com sucesso!");
+        return mv;
+    }
+
     @GetMapping("/cadAtendimento")
     public ModelAndView cadAtendimento() {
         ModelAndView mv = new ModelAndView("index");
