@@ -22,7 +22,7 @@ xmlns:th="http://www.thymeleaf.org">
             <h5 class="card-title">Preenchimento do Atendimento</h5>
 
             <!-- FORMULARIO DE ATENDIMENTO -->
-            <form action="salvarAtendimento" method="POST">
+            <form action="/salvarAtendimentoEditado" method="POST" th:object="${objAtendimento}">
               <div class="alert alert-success" role="alert" 
                 th:if="${not #strings.isEmpty(msg)}">
                 <span th:text="${msg}"></span>
@@ -31,35 +31,39 @@ xmlns:th="http://www.thymeleaf.org">
                   <span th:text="${error}"></span>
               </div>
               <input type="hidden" name="userName" th:value="${#authentication.getPrincipal().getUsername()}">
+              <input type="hidden" name="id" th:value="${objAtendimento.id}">
               <div class="row mb-3">
                 <label for="prontuario" class="col-sm-2 col-form-label">Prontuário</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="prontuario" name="prontuario">
+                  <input type="text" class="form-control" id="prontuario" name="prontuario" th:field="*{prontuario}">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="rg" class="col-sm-2 col-form-label">Rg</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="rg" name="rg">
+                  <input type="text" class="form-control" id="rg" name="rg" th:field="*{rg}">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="nome" class="col-sm-2 col-form-label">Paciente</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="nome" name="nome">
+                  <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="dataAtendimento" class="col-sm-2 col-form-label">Data Atendimento</label>
                 <div class="col-sm-10">
-                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento">
-                  
+                  <!-- <td th:text="${#temporals.format(compra.dataCompra, 'dd-MM-yyyy')}"></td> -->
+                  <!-- <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento" th:field="*{dataAtendimento}"> -->
+                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento" th:field="*{dataAtendimento}">
+                  <!-- <p th:text="${dataFormatada}"></p> -->
+                  <!-- <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento" th:field="*{#temporals.format(dataAtendimento, 'dd-MM-yyyy')}"> -->
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="observacao" class="col-sm-2 col-form-label">Observação</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" style="height: 100px" id="observacao" name="observacoes"></textarea>
+                  <textarea class="form-control" style="height: 100px" id="observacao" name="observacoes" th:field="*{observacoes}"></textarea>
                 </div>
               </div>
               <div class="row mb-3">
@@ -70,15 +74,15 @@ xmlns:th="http://www.thymeleaf.org">
                     <label class="form-check-label" for="gridCheck1">Tratamento</label>
                   </div> -->
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" id="atendimento" name="status" value="Atendimento" checked>
+                    <input class="form-check-input" type="radio" id="atendimento" name="status" value="Atendimento" th:field="*{status}">
                     <label class="form-check-label" for="atendimento">Atendimento Normal</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" id="emergencia" name="status" value="Emergência">
-                    <label class="form-check-label" for="emergencia">Emergência</label>
+                    <input class="form-check-input" type="radio" id="emergencia" name="status" value="Emergência" th:field="*{status}">
+                    <label class="form-check-label" for="emergencia">Emergencia</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" id="falta" name="status" value="Falta">
+                    <input class="form-check-input" type="radio" id="falta" name="status" value="Falta" th:field="*{status}">
                     <label class="form-check-label" for="falta">Falta</label>
                   </div>
                 </div>
@@ -86,35 +90,36 @@ xmlns:th="http://www.thymeleaf.org">
               <div>
                 <h4>Origem: </h4>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="Ex-Clínico/Enca.Orto" name="origem" id="Tratamento" checked>
+                  <input class="form-check-input" type="radio" value="Ex-Clínico/Enca.Orto" name="origem" id="Tratamento" th:field="*{origem}">
                   <label class="form-check-label" for="Tratamento">
                     Tratamento
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="origem" value="Ex-Clínico/L. Espera" id="Ex-Clínico/L. Espera">
+                  <input class="form-check-input" type="radio" name="origem" value="Ex-Clínico/L. Espera" id="Ex-Clínico/L. Espera" th:field="*{origem}">
                   <label class="form-check-label" for="Ex-Clínico/L. Espera">
                     Ex-Clínico/L. Espera
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="origem" value="Ex-Clínico/Enca.Orto" id="Ex-Clínico/Enca.Orto" >
+                  <input class="form-check-input" type="radio" name="origem" value="Ex-Clínico/Enca.Orto" id="Ex-Clínico/Enca.Orto" th:field="*{origem}">
                   <label class="form-check-label" for="Ex-Clínico/Enca.Orto">
                     Ex-Clínico/Enca.Orto
                   </label>
                 </div>
-                <br><br>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  <h5 class="form-check-label" for="flexCheckDefault">
-                    Tratamento Conluido
-                  </h5>
-                </div>
+              </div>
+              <br><br>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="tratamentoConcluido" id="flexCheckDefault" th:field="*{tratamentoConcluido}">
+                <h5 class="form-check-label" for="flexCheckDefault">
+                  Tratamento Conluido
+                </h5>
+              </div>
               <div class="row mb-3">
                 <div class="col-sm-10">
-                <br>
+                  <br>
                   <button type="submit" class="btn btn-primary">Salvar</button>
-                  <a th:href="@{/index}" class="btn btn-danger">Cancelar</a>
+                  <a th:href="@{/atendimentos/{userName}(userName=${#authentication.getPrincipal().getUsername()})}" class="btn btn-danger">Voltar</a>
                 </div>
               </div>
             </form>
@@ -142,18 +147,8 @@ xmlns:th="http://www.thymeleaf.org">
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
 </body>
 
 </html>
