@@ -24,7 +24,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <h5>Selecione o mês que deseja gerar o Relatório</h5>
                 <br>
                 <input type="hidden" name="userName" th:value="${#authentication.getPrincipal().getUsername()}">
-                <input type="month" id="data" name="data">
+                <input type="month" id="data" name="data" required>
                 <br>
                 <br>
                 <button class="btn btn-primary">Gerar</button>
