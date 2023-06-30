@@ -38,7 +38,8 @@ public class AtendimentoService {
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = LocalDate.now();
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
-        ordenaPorNome(atendimentos);
+        // ordenaPorNome(atendimentos);
+        ordernaPorData(atendimentos);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
         return at;
@@ -54,6 +55,16 @@ public class AtendimentoService {
         });
     }
 
+    public void ordernaPorData(List<Atendimento> listaAtendimentos) {
+        Collections.sort(listaAtendimentos, new Comparator<Atendimento>() {
+            @Override
+            public int compare(Atendimento a1, Atendimento a2) {
+
+                return a1.getDataAtendimento().compareTo(a2.getDataAtendimento());
+            }
+        });
+    }
+
     public List<Atendimento> findByData(String data, String userName) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM");
         Date dataInicial = formato.parse(data);
@@ -64,7 +75,7 @@ public class AtendimentoService {
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dF = dataFinal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
-        ordenaPorNome(atendimentos);
+        ordernaPorData(atendimentos);
         List<Atendimento> at = atendimentos.stream()
                 .filter(a -> a.getUsuario().getUsername().equalsIgnoreCase(userName)).toList();
         return at;

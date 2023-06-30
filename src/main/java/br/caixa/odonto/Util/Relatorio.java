@@ -7,8 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-import com.lowagie.text.Anchor;
-import com.lowagie.text.Chapter;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -17,7 +15,6 @@ import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
-import com.lowagie.text.Section;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -49,25 +46,6 @@ public class Relatorio implements RelatorioInterfece {
         PdfWriter.getInstance(pdf,
                 new FileOutputStream("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf"));
     }
-
-    // public void primeiroPdf(String frase) throws DocumentException,
-    // FileNotFoundException {
-
-    // Document documentoPDF = new Document();
-
-    // PdfWriter.getInstance(documentoPDF,
-    // new
-    // FileOutputStream("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf"));
-
-    // documentoPDF.open();
-
-    // Paragraph paragrafoTeste = new Paragraph(frase);
-
-    // documentoPDF.add(paragrafoTeste);
-
-    // documentoPDF.close();
-
-    // }
 
     @Override
     public void gerarCabecalho() {

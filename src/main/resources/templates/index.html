@@ -121,6 +121,15 @@ xmlns:th="http://www.thymeleaf.org">
                   <a th:href="@{/index}" class="btn btn-danger">Cancelar</a>
                 </div>
               </div>
+              <div class="input-fiel col s6 cb-required">
+                <label class="form-label">Usuário</label>
+                <select class="form-select" aria-label="Default select example" name="usuário">
+                    <option th:each="usuario : ${listaUsuarios}"
+                          th:value="${usuario.nome}" th:text="${usuario.nome}" th:field="*{usuario.nome}"
+                          autofocus="autofocus">
+                    </option>
+                </select>
+            </div>
             </form>
             <!-- FIM FORMULARIO DE ATENDIMENTO -->
           </div>

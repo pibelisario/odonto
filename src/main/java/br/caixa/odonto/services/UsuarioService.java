@@ -1,5 +1,7 @@
 package br.caixa.odonto.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class UsuarioService {
 
     public Usuario findByUser(String userName) {
         return usuarioRepository.findByUser(userName).get();
+    }
+
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
     }
 
 }

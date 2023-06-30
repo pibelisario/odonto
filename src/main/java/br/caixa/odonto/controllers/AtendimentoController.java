@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.caixa.odonto.enums.RoleName;
 import br.caixa.odonto.models.Atendimento;
+import br.caixa.odonto.models.Usuario;
+import br.caixa.odonto.repositories.UsuarioRepository;
 import br.caixa.odonto.services.AtendimentoService;
 import jakarta.validation.Valid;
 
@@ -28,17 +31,15 @@ public class AtendimentoController {
     @Autowired
     IndexController indexController;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     @PostMapping("salvarAtendimento")
     public ModelAndView salvarAtendimento(@Valid Atendimento atendimento, BindingResult result,
             RedirectAttributes attributes,
             @RequestParam String userName) {
         ModelAndView mv = new ModelAndView();
 
-        // if (result.hasErrors()) {
-        // attributes.addFlashAttribute("error", "Verifique se todos os campos estão
-        // digitados corretamente");
-        // return mv;
-        // }
         if (result.hasErrors()) {
             mv.setViewName("/index");
             mv.addObject("objAtendimento", atendimento);
@@ -80,6 +81,8 @@ public class AtendimentoController {
     @GetMapping("/cadAtendimento")
     public ModelAndView cadAtendimento() {
         ModelAndView mv = new ModelAndView("index");
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        mv.addObject("listaUsuarios", usuarios);
         mv.addObject("objAtendimento", new Atendimento());
         return mv;
     }

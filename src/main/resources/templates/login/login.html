@@ -16,9 +16,6 @@
 
                         <h3 class="mb-5">Login</h3>
                         <form th:action="@{/login}" method="post">
-                            <!-- <div class="alert alert-danger" role="alert" th:if="${msg}" >
-                                <strong th:text="${msg}"></strong>
-                            </div> -->
                             <div class="alert alert-danger" role="alert" th:if="${param.error}" >
                                 <strong>Erro</strong>
                             </div>
@@ -26,12 +23,22 @@
                                 <label class="form-label" for="user">Nome de usuário</label>
                                 <input type="text" id="user" name="username" class="form-control form-control-lg"/>
                             </div>
+                           
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="senha">Senha</label>
                                 <input type="password" id="senha" name="password" class="form-control form-control-lg"/>
                             </div>
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Entrar</button>
                         </form>
+                        <!-- <div class="input-fiel col s6 cb-required">
+                            <label class="form-label">Usuário</label>
+                            <select class="form-select" aria-label="Default select example" name="usuário">
+                                <option th:each="usuario : ${listaUsuarios}"
+                                      th:value="${usuario.id}" th:text="${usuario.id}" th:field="*{usuario.id}"
+                                      autofocus="autofocus">
+                                </option>
+                            </select>
+                        </div> -->
                         <hr class="my-4">
                     </div>
                 </div>

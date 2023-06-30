@@ -3,8 +3,6 @@ package br.caixa.odonto.services;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -43,16 +41,6 @@ public class RelatorioService {
         relatorio.gerarAssinatura();
         relatorio.imprimir();
 
-    }
-
-    public void ordenaPorNome(List<Atendimento> listaAtendimentos) {
-        Collections.sort(listaAtendimentos, new Comparator<Atendimento>() {
-            @Override
-            public int compare(Atendimento a1, Atendimento a2) {
-
-                return a1.getNome().compareTo(a2.getNome());
-            }
-        });
     }
 
 }
