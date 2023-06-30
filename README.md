@@ -60,14 +60,14 @@ Está sempre será a última página de cada relatório. Essa página possui uma
 - Maven
 - Spring Security
 - LibrePDF
-- 
+  
 ## Front end
 - thymeleaf
 - Bootstrap
 - HTML
 - CSS
 - JS
-- 
+  
 ## Implantação em produção
 - Back end: AWS
 - Banco de dados: MySQL
