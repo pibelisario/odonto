@@ -1,4 +1,4 @@
-# Big Game Survey 
+# Proteto Odonto
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/pibelisario/odonto/blob/master/LICENSE) 
 
 # Sobre o projeto
