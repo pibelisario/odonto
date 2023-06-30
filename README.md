@@ -49,7 +49,7 @@ Aqui o dentista tem informações sobre o atendimento de cada paciente, contem i
 
 Está sempre será a última página de cada relatório. Essa página possui uma tabela com informações sobre a quantidade de atendimento e procedimentos realizados, com um campo para assinatura e carimbo de cada dentista para posteriormente ser impresso e entregue a diretoria.
 
-![web 5](https://github.com/pibelisario/odonto/blob/master/assets/tela%20p%C3%A1g%201%20relat%C3%B3rio.png?raw=true)
+![web 5](https://github.com/pibelisario/odonto/blob/master/assets/tela%20p%C3%A1g%202%20relat%C3%B3rio.png?raw=true)
 
 
 # Tecnologias utilizadas
