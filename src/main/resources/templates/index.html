@@ -22,10 +22,14 @@ xmlns:th="http://www.thymeleaf.org">
             <h5 class="card-title">Preenchimento do Atendimento</h5>
 
             <!-- FORMULARIO DE ATENDIMENTO -->
-            <form action="salvarAtendimento" method="POST">
+            <form action="salvarAtendimento" method="POST" th:object="${objAtendimento}">
               <div class="alert alert-success" role="alert" 
                 th:if="${not #strings.isEmpty(msg)}">
                 <span th:text="${msg}"></span>
+              </div>
+              <div class="alert alert-danger" role="alert" 
+                th:if="${not #strings.isEmpty(alert)}">
+                <span th:text="${alert}"></span>
               </div>
               <div class="alert alert-danger" th:if="${not #strings.isEmpty(error)}">
                   <span th:text="${error}"></span>
@@ -34,25 +38,25 @@ xmlns:th="http://www.thymeleaf.org">
               <div class="row mb-3">
                 <label for="prontuario" class="col-sm-2 col-form-label">Prontuário</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="prontuario" name="prontuario">
+                  <input type="text" class="form-control" id="prontuario" name="prontuario" th:field="*{prontuario}">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="rg" class="col-sm-2 col-form-label">Rg</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="rg" name="rg">
+                  <input type="text" class="form-control" id="rg" name="rg" th:field="*{rg}">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="nome" class="col-sm-2 col-form-label">Paciente</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="nome" name="nome">
+                  <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="dataAtendimento" class="col-sm-2 col-form-label">Data Atendimento</label>
                 <div class="col-sm-10">
-                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento">
+                  <input type="date" class="form-control" id="dataAtendimento" name="dataAtendimento" th:field="*{dataAtendimento}" required>
                   
                 </div>
               </div>

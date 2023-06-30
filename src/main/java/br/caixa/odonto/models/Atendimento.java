@@ -21,11 +21,11 @@ public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Prontuário vazio")
     private String prontuario;
-    @NotBlank
+    @NotBlank(message = "Rg vazio")
     private String rg;
-    @NotBlank
+    @NotBlank(message = " Nome vazio")
     private String nome;
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -1,11 +1,13 @@
 package br.caixa.odonto.controllers;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,16 +32,24 @@ public class AtendimentoController {
     public ModelAndView salvarAtendimento(@Valid Atendimento atendimento, BindingResult result,
             RedirectAttributes attributes,
             @RequestParam String userName) {
-        ModelAndView mv = new ModelAndView("redirect:/cadAtendimento");
+        ModelAndView mv = new ModelAndView();
 
+        // if (result.hasErrors()) {
+        // attributes.addFlashAttribute("error", "Verifique se todos os campos estão
+        // digitados corretamente");
+        // return mv;
+        // }
         if (result.hasErrors()) {
-            // List<String> msg = new ArrayList<>();
-            // for (ObjectError objectError : result.getAllErrors()) {
-            // msg.add(objectError.getDefaultMessage());
-            // }
-            attributes.addFlashAttribute("error", "Verifique se todos os campos estão digitados corretamente");
+            mv.setViewName("/index");
+            mv.addObject("objAtendimento", atendimento);
+            List<String> alert = new ArrayList<>();
+            for (ObjectError objectError : result.getAllErrors()) {
+                alert.add(objectError.getDefaultMessage());
+            }
+            mv.addObject("alert", alert);
             return mv;
         }
+        mv.setViewName("redirect:/cadAtendimento");
         atendimentoService.salvarPaciente(atendimento, userName);
         attributes.addFlashAttribute("msg", "Cadastro salvo com sucesso!");
         return mv;
@@ -49,24 +59,28 @@ public class AtendimentoController {
     public ModelAndView salvarAtendimentoEditado(@Valid Atendimento atendimento, BindingResult result,
             RedirectAttributes attributes,
             @RequestParam String userName, @RequestParam Long id) {
-        ModelAndView mv = new ModelAndView("redirect:/atendimentos/" + userName);
+        ModelAndView mv = new ModelAndView();
 
         if (result.hasErrors()) {
-            // List<String> msg = new ArrayList<>();
-            // for (ObjectError objectError : result.getAllErrors()) {
-            // msg.add(objectError.getDefaultMessage());
-            // }
-            attributes.addFlashAttribute("error", "Verifique se todos os campos estão digitados corretamente");
+            mv.setViewName("/editarAtendimento");
+            mv.addObject("objAtendimento", atendimento);
+            List<String> alert = new ArrayList<>();
+            for (ObjectError objectError : result.getAllErrors()) {
+                alert.add(objectError.getDefaultMessage());
+            }
+            mv.addObject("alert", alert);
             return mv;
         }
+        mv.setViewName("redirect:/atendimentos/" + userName);
         atendimentoService.salvarPaciente(atendimento, userName);
-        attributes.addFlashAttribute("msg", "Cadastro salvo com sucesso!");
+        attributes.addFlashAttribute("msg", "Cadastro atualizado com sucesso!");
         return mv;
     }
 
     @GetMapping("/cadAtendimento")
     public ModelAndView cadAtendimento() {
         ModelAndView mv = new ModelAndView("index");
+        mv.addObject("objAtendimento", new Atendimento());
         return mv;
     }
 

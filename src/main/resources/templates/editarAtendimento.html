@@ -27,6 +27,10 @@ xmlns:th="http://www.thymeleaf.org">
                 th:if="${not #strings.isEmpty(msg)}">
                 <span th:text="${msg}"></span>
               </div>
+              <div class="alert alert-danger" role="alert" 
+                th:if="${not #strings.isEmpty(alert)}">
+                <span th:text="${alert}"></span>
+              </div>
               <div class="alert alert-danger" th:if="${not #strings.isEmpty(error)}">
                   <span th:text="${error}"></span>
               </div>
@@ -90,7 +94,7 @@ xmlns:th="http://www.thymeleaf.org">
               <div>
                 <h4>Origem: </h4>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="Ex-Clínico/Enca.Orto" name="origem" id="Tratamento" th:field="*{origem}">
+                  <input class="form-check-input" type="radio" value="Tratamento" name="origem" id="Tratamento" th:field="*{origem}">
                   <label class="form-check-label" for="Tratamento">
                     Tratamento
                   </label>
