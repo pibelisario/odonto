@@ -31,6 +31,7 @@ public class SecurityConfig {
 
         http.formLogin((form) -> form
                 .loginPage("/login").permitAll()
+                .loginPage("/login2").permitAll()
                 .defaultSuccessUrl("/cadAtendimento"));
 
         http.logout((logout) -> logout.permitAll());
