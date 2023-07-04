@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,7 +37,8 @@ public class AtendimentoService {
         dataInicial.set(Calendar.DAY_OF_MONTH, dataInicial.getMinimalDaysInFirstWeek());
         dataInicial.set(Calendar.DAY_OF_MONTH, dataFinal.getActualMinimum(Calendar.DAY_OF_MONTH));
         LocalDate dI = dataInicial.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate dF = LocalDate.now();
+        // LocalDate dF = LocalDate.now();
+        LocalDate dF = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
         List<Atendimento> atendimentos = atendimentoRepository.findAtendimentoBydataAtendimentoBetween(dI, dF);
         // ordenaPorNome(atendimentos);
         ordernaPorData(atendimentos);
