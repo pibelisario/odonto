@@ -18,8 +18,12 @@ import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.ColumnText;
+import com.lowagie.text.pdf.PdfGState;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
 import com.lowagie.text.pdf.PdfWriter;
 
 import br.caixa.odonto.models.Atendimento;
@@ -35,6 +39,9 @@ public class Relatorio implements RelatorioInterfece {
     private Usuario usuario;
     private Date data;
     private Document pdf;
+    private PdfGState gstate;
+    private PdfWriter pdfWriter;
+    FileOutputStream pdfOutputFile;
 
     public Relatorio(List<Atendimento> atendimento, Usuario usuario, Date newDate)
             throws DocumentException, IOException {
@@ -45,9 +52,13 @@ public class Relatorio implements RelatorioInterfece {
         this.data = newDate;
         this.pdf.setMargins(20, 20, 20, 20);
         this.pdf.setMarginMirroring(true);
+        this.pdfOutputFile = new FileOutputStream("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf");
         this.pdf.open();
-        PdfWriter.getInstance(pdf,
-                new FileOutputStream("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf"));
+        pdfWriter = PdfWriter.getInstance(pdf, pdfOutputFile);
+        // Inicializando contador de págs
+        gstate = new PdfGState();
+        gstate.setFillOpacity(0.3f);
+        // gstate.setStrokeOpacity(0.3f);
     }
 
     @Override
@@ -314,6 +325,25 @@ public class Relatorio implements RelatorioInterfece {
         }
 
         return n;
+    }
+
+    public void addPageNumber() throws IOException {
+        PdfReader reader = new PdfReader("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf");
+        PdfStamper stamper = new PdfStamper(reader,
+                new FileOutputStream("C:\\Workspace\\odonto\\src\\Relatorio\\RelatorioMensalPag.pdf"));
+        stamper.setRotateContents(false);
+        for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+            Phrase t = new Phrase(i + " de " + reader.getNumberOfPages(),
+                    new Font(Font.HELVETICA, 14));
+
+            float xt = reader.getPageSize(i).getWidth() - 50;
+            float yt = reader.getPageSize(i).getBottom(5);
+            ColumnText.showTextAligned(
+                    stamper.getOverContent(i), Element.ALIGN_RIGHT,
+                    t, xt, yt, 0);
+        }
+        stamper.close();
+        reader.close();
     }
 
     @Override

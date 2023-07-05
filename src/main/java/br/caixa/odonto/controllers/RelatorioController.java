@@ -36,7 +36,7 @@ public class RelatorioController {
         relatorioService.gerarRelatorio(data, userName);
 
         byte[] arquivo = Files
-                .readAllBytes(Paths.get("C:\\Workspace\\odonto\\src\\Relatorio\\Relatorio1.pdf"));
+                .readAllBytes(Paths.get("C:\\Workspace\\odonto\\src\\Relatorio\\RelatorioMensalPag.pdf"));
 
         org.springframework.http.HttpHeaders httpHeaders = new org.springframework.http.HttpHeaders();
 

@@ -42,6 +42,7 @@ public class RelatorioService {
         relatorio.gerarRodape();
         relatorio.gerarAssinatura();
         relatorio.imprimir();
+        relatorio.addPageNumber();
 
     }
 
