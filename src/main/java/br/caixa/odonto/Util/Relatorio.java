@@ -2,16 +2,19 @@ package br.caixa.odonto.Util;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
@@ -34,7 +37,7 @@ public class Relatorio implements RelatorioInterfece {
     private Document pdf;
 
     public Relatorio(List<Atendimento> atendimento, Usuario usuario, Date newDate)
-            throws DocumentException, FileNotFoundException {
+            throws DocumentException, IOException {
         this.usuario = usuario;
         this.atendimento = atendimento;
         this.pdf = new Document();
@@ -48,9 +51,9 @@ public class Relatorio implements RelatorioInterfece {
     }
 
     @Override
-    public void gerarCabecalho() {
+    public void gerarCabecalho() throws BadElementException, IOException {
         // Paragrafo com titúlo do relatório e mes.
-        this.pdf.open();
+        // this.pdf.open();
 
         Paragraph paragrafoTitulo = new Paragraph();
         paragrafoTitulo.setAlignment(Element.ALIGN_CENTER);
@@ -71,18 +74,19 @@ public class Relatorio implements RelatorioInterfece {
 
     }
 
+    public void adicionarImagemCabecalho() throws BadElementException, IOException {
+        this.pdf.open();
+        Image image = Image.getInstance("https://i.imgur.com/MaQQcUN.png");
+        image.scalePercent(80, 80);
+        image.setAlignment(Image.MIDDLE);
+        this.pdf.add(image);
+    }
+
     @Override
     public void gerarCorpo() {
 
-        this.pdf.open();
+        // this.pdf.open();
         Paragraph paragrafoNome = new Paragraph();
-        paragrafoNome.add(new Paragraph());
-        paragrafoNome.add(new Paragraph());
-        paragrafoNome.add(new Paragraph());
-        paragrafoNome.add(new Paragraph());
-        paragrafoNome.add(new Paragraph());
-        paragrafoNome.add(new Paragraph());
-        paragrafoNome.add(new Paragraph());
         paragrafoNome.setAlignment(Element.ALIGN_LEFT);
 
         this.pdf.add(paragrafoNome);

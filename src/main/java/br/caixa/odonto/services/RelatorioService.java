@@ -1,6 +1,7 @@
 package br.caixa.odonto.services;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class RelatorioService {
     UsuarioService usuarioService;
 
     public void gerarRelatorio(String data, String userName)
-            throws DocumentException, FileNotFoundException, ParseException {
+            throws DocumentException, ParseException, IOException {
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM");
         Date newDate = formato.parse(data);
@@ -35,6 +36,7 @@ public class RelatorioService {
         Usuario usuario = usuarioService.findByUser(userName);
 
         Relatorio relatorio = new Relatorio(atendimentos, usuario, newDate);
+        relatorio.adicionarImagemCabecalho();
         relatorio.gerarCabecalho();
         relatorio.gerarCorpo();
         relatorio.gerarRodape();
