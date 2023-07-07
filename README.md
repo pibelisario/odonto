@@ -3,8 +3,6 @@
 
 # Sobre o projeto
 
-https://wmazoni-sds1.netlify.app
-
 O projeto Odonto veio de uma necessidade de simplificar o método em que eram contabilizados os atendimentos dos dentistas na empresa em que trabalho.
 
 Até a criação do projeto a contabilização de atendimentos de cada dentista era mensalmente feita por meio de uma planilha Excel, onde muitos tinham dificuldade em lidar e também os erros e desconfiguração da planilha eram frequentes. Foi onde eu vi uma oportunidade de aplicar meus estudos em Spring Boot. Então decidi transformar essa planilha em uma aplicação web o mais simples possível de ser utilizada.
