@@ -25,6 +25,8 @@ Essa tela é preenchida pelo dentista ou assistente, aqui contem as informaçõe
 
 ### Tela lista de atendimentos
 
+##OBS: Nenhuma informação de pessoas reais foram utilizadas nas telas.##
+
 Aqui o dentista pode visualizar, editar ou excluir algum atendimento caso necessário. 
 Também possui um campo busca por mês onde ele consegue visualizar atendimentos passados realizados.
 Devido ao controle de acesso, os atendimentos que iram aparecer serão somente os que foram realizados pelo usuário que esta logado.
