@@ -19,13 +19,13 @@ Cada dentista tem um login e senha para controle de acesso.
 
 ### Tela de Cadastro de Atendimento
 
+##OBS: Nenhuma informação de pessoas reais foram utilizadas nas telas.##
+
 Essa tela é preenchida pelo dentista ou assistente, aqui contem as informações pessoais de cada paciente, necessárias para gerar o relatório de atendimento ao final de cada mês.
 
 ![web 1](https://github.com/pibelisario/odonto/blob/master/assets/tela%20cadastro%20de%20atendimentos.png?raw=true) 
 
 ### Tela lista de atendimentos
-
-##OBS: Nenhuma informação de pessoas reais foram utilizadas nas telas.##
 
 Aqui o dentista pode visualizar, editar ou excluir algum atendimento caso necessário. 
 Também possui um campo busca por mês onde ele consegue visualizar atendimentos passados realizados.
